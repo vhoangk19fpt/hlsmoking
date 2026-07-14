@@ -24,18 +24,18 @@ function Index() {
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
           <div className="max-w-2xl">
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary px-3 py-1 text-xs font-medium text-muted-foreground">
-              <Sparkles className="h-3 w-3" /> New arrivals every week
+              <Sparkles className="h-3 w-3" /> Hàng mới mỗi tuần
             </span>
             <h1 className="mt-6 text-4xl font-bold tracking-tight sm:text-6xl">
-              Thoughtfully made goods for everyday life.
+              LH smoking — sản phẩm tuyển chọn cho bạn.
             </h1>
             <p className="mt-6 text-lg text-muted-foreground">
-              Explore our curated collection of products, crafted with care and shipped worldwide.
+              Khám phá bộ sưu tập của LH smoking, giao hàng toàn quốc, thanh toán an toàn.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg">
                 <Link to="/products">
-                  Shop the collection <ArrowRight className="ml-2 h-4 w-4" />
+                  Xem tất cả sản phẩm <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
             </div>
@@ -45,17 +45,17 @@ function Index() {
 
       <section className="border-b border-border">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 py-10 sm:grid-cols-3 sm:px-6 lg:px-8">
-          <Feature icon={<Truck className="h-5 w-5" />} title="Free shipping" desc="On orders over $50" />
-          <Feature icon={<ShieldCheck className="h-5 w-5" />} title="Secure checkout" desc="Powered by Shopify" />
-          <Feature icon={<Sparkles className="h-5 w-5" />} title="Made with care" desc="Small-batch quality" />
+          <Feature icon={<Truck className="h-5 w-5" />} title="Miễn phí vận chuyển" desc="Đơn từ $50" />
+          <Feature icon={<ShieldCheck className="h-5 w-5" />} title="Thanh toán an toàn" desc="Bảo mật bởi Shopify" />
+          <Feature icon={<Sparkles className="h-5 w-5" />} title="Chất lượng chọn lọc" desc="Sản phẩm chính hãng" />
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="mb-8 flex items-end justify-between">
           <div>
-            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">Featured products</h2>
-            <p className="mt-2 text-muted-foreground">Fresh picks from our shelves.</p>
+            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">Sản phẩm nổi bật</h2>
+            <p className="mt-2 text-muted-foreground">Những lựa chọn hàng đầu tại LH smoking.</p>
           </div>
           <Link to="/products" className="hidden text-sm font-medium hover:underline sm:block">
             View all →

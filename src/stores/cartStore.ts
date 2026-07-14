@@ -123,6 +123,19 @@ export const useCartStore = create<CartStore>()(
       isSyncing: false,
 
       addItem: async (item) => {
+        // Security hardening: validate quantity is a positive integer within bounds
+        // Prevents integer overflow, negative-quantity abuse, and inventory-drain DoS.
+        const q = Number.isFinite(item.quantity) ? Math.floor(item.quantity) : 0;
+        if (q < 1 || q > 99) {
+          console.warn("Rejected addItem: invalid quantity", item.quantity);
+          return;
+        }
+        item = { ...item, quantity: q };
+        // Validate variantId matches Shopify GID format
+        if (typeof item.variantId !== "string" || !item.variantId.startsWith("gid://shopify/ProductVariant/")) {
+          console.warn("Rejected addItem: invalid variantId");
+          return;
+        }
         const { items, cartId, clearCart } = get();
         const existingItem = items.find((i) => i.variantId === item.variantId);
         set({ isLoading: true });
@@ -163,10 +176,17 @@ export const useCartStore = create<CartStore>()(
       },
 
       updateQuantity: async (variantId, quantity) => {
-        if (quantity <= 0) {
+        // Security hardening: coerce and bound quantity
+        const q = Number.isFinite(quantity) ? Math.floor(quantity) : 0;
+        if (q <= 0) {
           await get().removeItem(variantId);
           return;
         }
+        if (q > 99) {
+          console.warn("Rejected updateQuantity: exceeds max (99)");
+          return;
+        }
+        quantity = q;
         const { items, cartId, clearCart } = get();
         const item = items.find((i) => i.variantId === variantId);
         if (!item?.lineId || !cartId) return;

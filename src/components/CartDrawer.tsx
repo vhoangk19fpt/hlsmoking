@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -12,10 +13,16 @@ import {
 import { ShoppingBag, Minus, Plus, Trash2, ExternalLink, Loader2 } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
 import { formatMoney } from "@/lib/shopify";
+import { useAuth } from "@/hooks/useAuth";
+import { CheckoutDialog } from "./CheckoutDialog";
+import { toast } from "sonner";
 
 export const CartDrawer = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { items, isLoading, isSyncing, updateQuantity, removeItem, getCheckoutUrl, syncCart } =
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const { items, isLoading, isSyncing, updateQuantity, removeItem, syncCart } =
     useCartStore();
   const totalItems = items.reduce((s, i) => s + i.quantity, 0);
   const totalPrice = items.reduce((s, i) => s + parseFloat(i.price.amount) * i.quantity, 0);
@@ -26,14 +33,19 @@ export const CartDrawer = () => {
   }, [isOpen, syncCart]);
 
   const handleCheckout = () => {
-    const url = getCheckoutUrl();
-    if (url) {
-      window.open(url, "_blank");
+    if (!user) {
+      toast.error("Vui lòng đăng nhập để tiếp tục");
       setIsOpen(false);
+      navigate({ to: "/auth" });
+      return;
     }
+    setCheckoutOpen(true);
+    setIsOpen(false);
   };
 
   return (
+    <>
+    <CheckoutDialog open={checkoutOpen} onOpenChange={setCheckoutOpen} userId={user?.id ?? ""} />
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button variant="outline" size="icon" className="relative">
@@ -150,5 +162,6 @@ export const CartDrawer = () => {
         </div>
       </SheetContent>
     </Sheet>
+    </>
   );
 };

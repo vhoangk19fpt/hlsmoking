@@ -44,6 +44,8 @@ export const CartDrawer = () => {
   };
 
   return (
+    <>
+    <CheckoutDialog open={checkoutOpen} onOpenChange={setCheckoutOpen} userId={user?.id ?? ""} />
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button variant="outline" size="icon" className="relative">

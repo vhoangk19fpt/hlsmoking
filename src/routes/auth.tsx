@@ -109,7 +109,16 @@ function AuthPage() {
                 <Input id="login-email" name="email" type="email" required autoComplete="email" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="login-password">Mật khẩu</Label>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="login-password">Mật khẩu</Label>
+                  <button
+                    type="button"
+                    onClick={handleForgot}
+                    className="text-xs text-muted-foreground hover:text-foreground underline underline-offset-2"
+                  >
+                    Quên mật khẩu?
+                  </button>
+                </div>
                 <Input id="login-password" name="password" type="password" required autoComplete="current-password" />
               </div>
               <Button type="submit" className="w-full" disabled={loading}>
@@ -130,6 +139,10 @@ function AuthPage() {
               <div className="space-y-2">
                 <Label htmlFor="signup-password">Mật khẩu</Label>
                 <Input id="signup-password" name="password" type="password" required autoComplete="new-password" minLength={6} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="signup-confirm">Xác nhận mật khẩu</Label>
+                <Input id="signup-confirm" name="confirm_password" type="password" required autoComplete="new-password" minLength={6} />
               </div>
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? "Đang xử lý..." : "Tạo tài khoản"}

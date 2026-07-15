@@ -19,7 +19,12 @@ export const Route = createFileRoute("/auth")({
 });
 
 const emailSchema = z.string().trim().email("Email không hợp lệ").max(255);
-const passwordSchema = z.string().min(6, "Mật khẩu tối thiểu 6 ký tự").max(72);
+const passwordSchema = z
+  .string()
+  .min(8, "Mật khẩu tối thiểu 8 ký tự")
+  .max(72)
+  .regex(/[A-Za-z]/, "Mật khẩu phải chứa chữ cái")
+  .regex(/[0-9]/, "Mật khẩu phải chứa số");
 const nameSchema = z.string().trim().min(1, "Nhập họ tên").max(100);
 
 function AuthPage() {
@@ -138,11 +143,11 @@ function AuthPage() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="signup-password">Mật khẩu</Label>
-                <Input id="signup-password" name="password" type="password" required autoComplete="new-password" minLength={6} />
+                <Input id="signup-password" name="password" type="password" required autoComplete="new-password" minLength={8} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="signup-confirm">Xác nhận mật khẩu</Label>
-                <Input id="signup-confirm" name="confirm_password" type="password" required autoComplete="new-password" minLength={6} />
+                <Input id="signup-confirm" name="confirm_password" type="password" required autoComplete="new-password" minLength={8} />
               </div>
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? "Đang xử lý..." : "Tạo tài khoản"}

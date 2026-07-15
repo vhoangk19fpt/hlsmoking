@@ -235,12 +235,11 @@ export const useCartStore = create<CartStore>()(
           const data = await storefrontApiRequest(CART_QUERY, { id: cartId });
           if (!data) return;
           const cart = data?.data?.cart;
-          // Only clear when Shopify confirms the cart is empty. A null cart
-          // usually means the cartId expired; drop the id but keep local
-          // items so the user doesn't lose their selection.
-          if (cart && cart.totalQuantity === 0) {
-            get().clearCart();
-          } else if (!cart) {
+          // Shopify can briefly report totalQuantity as 0 for newly-created
+          // carts or unavailable variants even though our local cart has the
+          // item the user just added. Keep local items as the display source of
+          // truth; only drop stale remote cart IDs when Shopify cannot find it.
+          if (!cart) {
             set({ cartId: null, checkoutUrl: null });
           }
         } catch (e) {

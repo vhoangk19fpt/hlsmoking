@@ -51,6 +51,9 @@ export function CheckoutDialog({ open, onOpenChange, userId }: Props) {
     if (!parsed.success) return toast.error(parsed.error.issues[0].message);
 
     setBusy(true);
+    // Mở tab đồng bộ trước khi await để tránh popup blocker chặn window.open sau await
+    const checkoutWindow = window.open("about:blank", "_blank");
+
     const itemsPayload = items.map((i) => ({
       title: i.product.node.title,
       variantId: i.variantId,
@@ -68,12 +71,24 @@ export function CheckoutDialog({ open, onOpenChange, userId }: Props) {
       address: parsed.data.address,
     });
     setBusy(false);
-    if (error) return toast.error(error.message);
+    if (error) {
+      checkoutWindow?.close();
+      return toast.error(error.message);
+    }
 
     const url = getCheckoutUrl();
-    if (url) window.open(url, "_blank");
-    toast.success("Đã lưu thông tin, chuyển đến trang thanh toán");
-    onOpenChange(false);
+    if (url) {
+      if (checkoutWindow && !checkoutWindow.closed) {
+        checkoutWindow.location.href = url;
+      } else {
+        window.location.href = url;
+      }
+      toast.success("Đã lưu thông tin, chuyển đến trang thanh toán");
+      onOpenChange(false);
+    } else {
+      checkoutWindow?.close();
+      toast.error("Không tạo được liên kết thanh toán. Vui lòng thử lại.");
+    }
   };
 
   return (

@@ -13,7 +13,7 @@ export const Route = createFileRoute("/wallet")({
   component: WalletPage,
   head: () => ({
     meta: [
-      { title: "Ví của tôi — LH smoking" },
+      { title: "Ví của tôi — HoLA smoking" },
       { name: "description", content: "Nạp tiền mô phỏng và xem số dư ví của bạn." },
     ],
   }),

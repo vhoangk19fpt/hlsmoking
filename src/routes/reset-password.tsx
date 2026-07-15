@@ -11,8 +11,8 @@ export const Route = createFileRoute("/reset-password")({
   component: ResetPasswordPage,
   head: () => ({
     meta: [
-      { title: "Đặt lại mật khẩu — LH smoking" },
-      { name: "description", content: "Đặt lại mật khẩu tài khoản LH smoking." },
+      { title: "Đặt lại mật khẩu — HoLA smoking" },
+      { name: "description", content: "Đặt lại mật khẩu tài khoản HoLA smoking." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -57,7 +57,7 @@ function ResetPasswordPage() {
     <div className="min-h-screen bg-background flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
         <Link to="/" className="block text-center text-2xl font-bold tracking-tight mb-8">
-          LH smoking
+          HoLA smoking
         </Link>
         <div className="rounded-lg border border-border p-6">
           <h1 className="text-xl font-semibold mb-1">Đặt lại mật khẩu</h1>

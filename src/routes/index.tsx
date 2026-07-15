@@ -27,10 +27,10 @@ function Index() {
               <Sparkles className="h-3 w-3" /> Hàng mới mỗi tuần
             </span>
             <h1 className="mt-6 text-4xl font-bold tracking-tight sm:text-6xl">
-              LH smoking — sản phẩm tuyển chọn cho bạn.
+              HoLA smoking — sản phẩm tuyển chọn cho bạn.
             </h1>
             <p className="mt-6 text-lg text-muted-foreground">
-              Khám phá bộ sưu tập của LH smoking, giao hàng toàn quốc, thanh toán an toàn.
+              Khám phá bộ sưu tập của HoLA smoking, giao hàng toàn quốc, thanh toán an toàn.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg">
@@ -55,7 +55,7 @@ function Index() {
         <div className="mb-8 flex items-end justify-between">
           <div>
             <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">Sản phẩm nổi bật</h2>
-            <p className="mt-2 text-muted-foreground">Những lựa chọn hàng đầu tại LH smoking.</p>
+            <p className="mt-2 text-muted-foreground">Những lựa chọn hàng đầu tại HoLA smoking.</p>
           </div>
           <Link to="/products" className="hidden text-sm font-medium hover:underline sm:block">
             View all →

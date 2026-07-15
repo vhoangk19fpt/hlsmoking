@@ -228,14 +228,21 @@ export const useCartStore = create<CartStore>()(
       getCheckoutUrl: () => get().checkoutUrl,
 
       syncCart: async () => {
-        const { cartId, isSyncing, clearCart } = get();
+        const { cartId, isSyncing } = get();
         if (!cartId || isSyncing) return;
         set({ isSyncing: true });
         try {
           const data = await storefrontApiRequest(CART_QUERY, { id: cartId });
           if (!data) return;
           const cart = data?.data?.cart;
-          if (!cart || cart.totalQuantity === 0) clearCart();
+          // Only clear when Shopify confirms the cart is empty. A null cart
+          // usually means the cartId expired; drop the id but keep local
+          // items so the user doesn't lose their selection.
+          if (cart && cart.totalQuantity === 0) {
+            get().clearCart();
+          } else if (!cart) {
+            set({ cartId: null, checkoutUrl: null });
+          }
         } catch (e) {
           console.error("Failed to sync cart:", e);
         } finally {

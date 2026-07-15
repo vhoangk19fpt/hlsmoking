@@ -56,9 +56,13 @@ function AuthPage() {
     const name = nameSchema.safeParse(fd.get("full_name"));
     const email = emailSchema.safeParse(fd.get("email"));
     const password = passwordSchema.safeParse(fd.get("password"));
+    const confirm = passwordSchema.safeParse(fd.get("confirm_password"));
     if (!name.success) return toast.error(name.error.issues[0].message);
     if (!email.success) return toast.error(email.error.issues[0].message);
     if (!password.success) return toast.error(password.error.issues[0].message);
+    if (!confirm.success) return toast.error(confirm.error.issues[0].message);
+    if (password.data !== confirm.data)
+      return toast.error("Mật khẩu xác nhận không khớp");
     setLoading(true);
     const { error } = await supabase.auth.signUp({
       email: email.data,
@@ -72,6 +76,19 @@ function AuthPage() {
     if (error) return toast.error(error.message);
     toast.success("Đăng ký thành công");
     navigate({ to: "/" });
+  };
+
+  const handleForgot = async () => {
+    const emailEl = document.getElementById("login-email") as HTMLInputElement | null;
+    const parsed = emailSchema.safeParse(emailEl?.value);
+    if (!parsed.success) return toast.error("Nhập email ở ô phía trên để đặt lại mật khẩu");
+    setLoading(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(parsed.data, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    setLoading(false);
+    if (error) return toast.error(error.message);
+    toast.success("Đã gửi email đặt lại mật khẩu");
   };
 
   return (

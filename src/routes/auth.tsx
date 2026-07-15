@@ -56,9 +56,13 @@ function AuthPage() {
     const name = nameSchema.safeParse(fd.get("full_name"));
     const email = emailSchema.safeParse(fd.get("email"));
     const password = passwordSchema.safeParse(fd.get("password"));
+    const confirm = passwordSchema.safeParse(fd.get("confirm_password"));
     if (!name.success) return toast.error(name.error.issues[0].message);
     if (!email.success) return toast.error(email.error.issues[0].message);
     if (!password.success) return toast.error(password.error.issues[0].message);
+    if (!confirm.success) return toast.error(confirm.error.issues[0].message);
+    if (password.data !== confirm.data)
+      return toast.error("Mật khẩu xác nhận không khớp");
     setLoading(true);
     const { error } = await supabase.auth.signUp({
       email: email.data,
@@ -72,6 +76,19 @@ function AuthPage() {
     if (error) return toast.error(error.message);
     toast.success("Đăng ký thành công");
     navigate({ to: "/" });
+  };
+
+  const handleForgot = async () => {
+    const emailEl = document.getElementById("login-email") as HTMLInputElement | null;
+    const parsed = emailSchema.safeParse(emailEl?.value);
+    if (!parsed.success) return toast.error("Nhập email ở ô phía trên để đặt lại mật khẩu");
+    setLoading(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(parsed.data, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    setLoading(false);
+    if (error) return toast.error(error.message);
+    toast.success("Đã gửi email đặt lại mật khẩu");
   };
 
   return (
@@ -92,7 +109,16 @@ function AuthPage() {
                 <Input id="login-email" name="email" type="email" required autoComplete="email" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="login-password">Mật khẩu</Label>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="login-password">Mật khẩu</Label>
+                  <button
+                    type="button"
+                    onClick={handleForgot}
+                    className="text-xs text-muted-foreground hover:text-foreground underline underline-offset-2"
+                  >
+                    Quên mật khẩu?
+                  </button>
+                </div>
                 <Input id="login-password" name="password" type="password" required autoComplete="current-password" />
               </div>
               <Button type="submit" className="w-full" disabled={loading}>
@@ -113,6 +139,10 @@ function AuthPage() {
               <div className="space-y-2">
                 <Label htmlFor="signup-password">Mật khẩu</Label>
                 <Input id="signup-password" name="password" type="password" required autoComplete="new-password" minLength={6} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="signup-confirm">Xác nhận mật khẩu</Label>
+                <Input id="signup-confirm" name="confirm_password" type="password" required autoComplete="new-password" minLength={6} />
               </div>
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? "Đang xử lý..." : "Tạo tài khoản"}

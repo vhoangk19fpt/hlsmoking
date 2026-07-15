@@ -19,7 +19,12 @@ export const Route = createFileRoute("/auth")({
 });
 
 const emailSchema = z.string().trim().email("Email không hợp lệ").max(255);
-const passwordSchema = z.string().min(6, "Mật khẩu tối thiểu 6 ký tự").max(72);
+const passwordSchema = z
+  .string()
+  .min(8, "Mật khẩu tối thiểu 8 ký tự")
+  .max(72)
+  .regex(/[A-Za-z]/, "Mật khẩu phải chứa chữ cái")
+  .regex(/[0-9]/, "Mật khẩu phải chứa số");
 const nameSchema = z.string().trim().min(1, "Nhập họ tên").max(100);
 
 function AuthPage() {

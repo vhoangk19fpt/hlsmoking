@@ -7,8 +7,8 @@ import { fetchProducts } from "@/lib/shopify";
 export const Route = createFileRoute("/products")({
   head: () => ({
     meta: [
-      { title: "Sản phẩm — LH smoking" },
-      { name: "description", content: "Xem toàn bộ sản phẩm của LH smoking." },
+      { title: "Sản phẩm — HoLA smoking" },
+      { name: "description", content: "Xem toàn bộ sản phẩm của HoLA smoking." },
     ],
   }),
   component: ProductsPage,

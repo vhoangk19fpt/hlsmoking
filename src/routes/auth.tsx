@@ -12,8 +12,8 @@ export const Route = createFileRoute("/auth")({
   component: AuthPage,
   head: () => ({
     meta: [
-      { title: "Đăng nhập — LH smoking" },
-      { name: "description", content: "Đăng nhập hoặc đăng ký tài khoản LH smoking." },
+      { title: "Đăng nhập — HoLA smoking" },
+      { name: "description", content: "Đăng nhập hoặc đăng ký tài khoản HoLA smoking." },
     ],
   }),
 });
@@ -95,7 +95,7 @@ function AuthPage() {
     <div className="min-h-screen bg-background flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
         <Link to="/" className="block text-center text-2xl font-bold tracking-tight mb-8">
-          LH smoking
+          HoLA smoking
         </Link>
         <Tabs defaultValue="login" className="w-full">
           <TabsList className="grid w-full grid-cols-2">

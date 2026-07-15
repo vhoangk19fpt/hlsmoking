@@ -74,11 +74,11 @@ function ResetPasswordPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="new-password">Mật khẩu mới</Label>
-              <Input id="new-password" name="password" type="password" required minLength={6} autoComplete="new-password" />
+              <Input id="new-password" name="password" type="password" required minLength={8} autoComplete="new-password" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="new-confirm">Xác nhận mật khẩu</Label>
-              <Input id="new-confirm" name="confirm_password" type="password" required minLength={6} autoComplete="new-password" />
+              <Input id="new-confirm" name="confirm_password" type="password" required minLength={8} autoComplete="new-password" />
             </div>
             <Button type="submit" className="w-full" disabled={loading || !ready}>
               {loading ? "Đang xử lý..." : "Cập nhật mật khẩu"}

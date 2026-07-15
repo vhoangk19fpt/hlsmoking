@@ -143,11 +143,11 @@ function AuthPage() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="signup-password">Mật khẩu</Label>
-                <Input id="signup-password" name="password" type="password" required autoComplete="new-password" minLength={6} />
+                <Input id="signup-password" name="password" type="password" required autoComplete="new-password" minLength={8} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="signup-confirm">Xác nhận mật khẩu</Label>
-                <Input id="signup-confirm" name="confirm_password" type="password" required autoComplete="new-password" minLength={6} />
+                <Input id="signup-confirm" name="confirm_password" type="password" required autoComplete="new-password" minLength={8} />
               </div>
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? "Đang xử lý..." : "Tạo tài khoản"}

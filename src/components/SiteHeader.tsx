@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { User, Wallet, LogOut } from "lucide-react";
+import { User, Wallet, LogOut, Phone } from "lucide-react";
 
 export function SiteHeader() {
   const { user } = useAuth();
@@ -89,6 +89,7 @@ export function SiteFooter() {
           />
           <span>Số 7 Thiền Quang, Hai Bà Trưng, Thành phố Hà Nội</span>
           <span className="text-border">·</span>
+          <Phone className="h-3.5 w-3.5 text-muted-foreground" aria-hidden="true" />
           <a href="tel:0988861573" className="hover:text-foreground">0988861573</a>
         </div>
       </div>

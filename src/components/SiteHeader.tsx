@@ -74,10 +74,23 @@ export function SiteHeader() {
 export function SiteFooter() {
   return (
     <footer className="border-t border-border">
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
         <p className="text-sm text-muted-foreground">
           © {new Date().getFullYear()} HoLA smoking. All rights reserved.
         </p>
+        <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+          <img
+            src="https://flagcdn.com/w20/vn.png"
+            srcSet="https://flagcdn.com/w40/vn.png 2x"
+            width={20}
+            height={14}
+            alt="Cờ Việt Nam"
+            className="rounded-sm border border-border"
+          />
+          <span>Số 7 Thiền Quang, Hai Bà Trưng, Thành phố Hà Nội</span>
+          <span className="text-border">·</span>
+          <a href="tel:0988861573" className="hover:text-foreground">0988861573</a>
+        </div>
       </div>
     </footer>
   );
